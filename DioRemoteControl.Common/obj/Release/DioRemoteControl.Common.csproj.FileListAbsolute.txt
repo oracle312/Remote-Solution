@@ -1,0 +1,9 @@
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Common\bin\Release\DioRemoteControl.Common.dll
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Common\bin\Release\DioRemoteControl.Common.pdb
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Common\bin\Release\Newtonsoft.Json.dll
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Common\bin\Release\Newtonsoft.Json.xml
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Common\obj\Release\DioRemoteControl.Common.csproj.AssemblyReference.cache
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Common\obj\Release\DioRemoteControl.Common.csproj.CoreCompileInputs.cache
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Common\obj\Release\DioRemot.03A41FAC.Up2Date
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Common\obj\Release\DioRemoteControl.Common.dll
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Common\obj\Release\DioRemoteControl.Common.pdb

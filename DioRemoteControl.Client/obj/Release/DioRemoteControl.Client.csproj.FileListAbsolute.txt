@@ -1,0 +1,16 @@
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Client\bin\Release\DioRemoteControl.Client.exe.config
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Client\bin\Release\DioRemoteControl.Client.exe
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Client\bin\Release\DioRemoteControl.Client.pdb
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Client\bin\Release\Newtonsoft.Json.xml
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Client\bin\Release\System.Drawing.Common.xml
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Client\bin\Release\websocket-sharp.xml
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Client\bin\Release\WindowsInput.xml
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Client\obj\Release\DioRemoteControl.Client.csproj.AssemblyReference.cache
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Client\obj\Release\DioRemoteControl.Client.Properties.Resources.resources
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Client\obj\Release\DioRemoteControl.Client.csproj.GenerateResource.cache
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Client\obj\Release\DioRemoteControl.Client.csproj.CoreCompileInputs.cache
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Client\obj\Release\DioRemoteControl.Client.csproj.Fody.CopyLocal.cache
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Client\obj\Release\DioRemoteControl.Client.csproj.Fody.RuntimeCopyLocal.cache
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Client\obj\Release\DioRemot.1A363427.Up2Date
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Client\obj\Release\DioRemoteControl.Client.exe
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Client\obj\Release\DioRemoteControl.Client.pdb
