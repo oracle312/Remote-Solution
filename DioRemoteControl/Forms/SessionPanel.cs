@@ -19,12 +19,43 @@ namespace DioRemoteControl.Agent.Controls
         private int _frameCount = 0;
         private double _currentFps = 0;
 
+        // Designer 컴포넌트
+        private System.ComponentModel.IContainer components = null;
+
         public PictureBox ScreenPictureBox => _pictureScreen;
 
         public SessionPanel()
         {
             InitializeComponent();
             InitializeScreenPanel();
+        }
+
+        /// <summary>
+        /// Designer에서 생성된 초기화 메서드
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // SessionPanel
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Name = "SessionPanel";
+            this.Size = new System.Drawing.Size(800, 600);
+            this.ResumeLayout(false);
+        }
+
+        /// <summary>
+        /// 리소스 정리
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
         }
 
         /// <summary>

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Text;
 using System.IO;
 using System.Drawing.Imaging;
+using DioRemoteControl.Agent.Controls;
 
 namespace DioRemoteControl.Agent.Forms
 {
@@ -26,6 +27,7 @@ namespace DioRemoteControl.Agent.Forms
         private string _authCode;
         private int _sessionId;
         private List<SessionPanel> _sessionPanels;
+        private Dictionary<string, SessionInfo> _sessions; // 추가
         private const int MAX_SESSIONS = 3;
 
         // UI 컨트롤
@@ -36,11 +38,20 @@ namespace DioRemoteControl.Agent.Forms
         private Button btnDisconnect;
         private TextBox txtLog;
 
+        // 세션 정보 클래스
+        private class SessionInfo
+        {
+            public string ClientId { get; set; }
+            public SessionPanel Panel { get; set; }
+            public DateTime ConnectedAt { get; set; }
+        }
+
         public MainForm()
         {
             InitializeComponent();
             InitializeUI();
             _sessionPanels = new List<SessionPanel>();
+            _sessions = new Dictionary<string, SessionInfo>(); // 초기화
         }
 
         /// <summary>
@@ -408,16 +419,30 @@ namespace DioRemoteControl.Agent.Forms
         /// </summary>
         private void HandleClientConnected(JObject data)
         {
-            var client = data["client"]?.ToObject<ClientInfo>();
-            if (client == null) return;
+            string clientId = data["client_id"]?.ToString();
+            string clientName = data["client_name"]?.ToString() ?? "알 수 없음";
 
             // 새 세션 패널 생성
             if (_sessionPanels.Count < MAX_SESSIONS)
             {
-                // SessionPanel에 표준 WebSocket 전달 방법 수정 필요
-                // 임시로 로그만 출력
-                Log($"✅ 고객 연결: {client.Name} ({client.Id})");
-                UpdateStatus($"연결됨 ({_sessionPanels.Count + 1}/{MAX_SESSIONS})", Color.LightGreen);
+                SessionPanel panel = new SessionPanel
+                {
+                    Size = new Size(600, 400),
+                    Location = new Point(10, 10 + (_sessionPanels.Count * 410))
+                };
+
+                panelSessions.Controls.Add(panel);
+                _sessionPanels.Add(panel);
+
+                _sessions[clientId] = new SessionInfo
+                {
+                    ClientId = clientId,
+                    Panel = panel,
+                    ConnectedAt = DateTime.Now
+                };
+
+                Log($"✅ 고객 연결: {clientName} ({clientId})");
+                UpdateStatus($"연결됨 ({_sessionPanels.Count}/{MAX_SESSIONS})", Color.LightGreen);
             }
         }
 
@@ -427,6 +452,22 @@ namespace DioRemoteControl.Agent.Forms
         private void HandleClientDisconnected(JObject data)
         {
             string clientId = data["client_id"]?.ToString();
+
+            if (_sessions.ContainsKey(clientId))
+            {
+                var session = _sessions[clientId];
+
+                // 패널 제거
+                if (session.Panel != null)
+                {
+                    panelSessions.Controls.Remove(session.Panel);
+                    _sessionPanels.Remove(session.Panel);
+                    session.Panel.Dispose();
+                }
+
+                _sessions.Remove(clientId);
+            }
+
             Log($"고객 연결 해제: {clientId}");
             UpdateStatus($"대기 중 ({_sessionPanels.Count}/{MAX_SESSIONS})",
                 _sessionPanels.Count > 0 ? Color.LightGreen : Color.Yellow);
@@ -473,22 +514,20 @@ namespace DioRemoteControl.Agent.Forms
         private void DisplayScreen(string clientId, Image screenImage)
         {
             // 연결된 세션 찾기
-            foreach (var session in _sessions.Values)
+            if (_sessions.ContainsKey(clientId))
             {
-                if (session.ClientId == clientId)
-                {
-                    // 세션 패널의 PictureBox에 표시
-                    if (session.Panel != null && session.Panel.ScreenPictureBox != null)
-                    {
-                        // 기존 이미지 Dispose
-                        var oldImage = session.Panel.ScreenPictureBox.Image;
-                        session.Panel.ScreenPictureBox.Image = screenImage;
-                        oldImage?.Dispose();
+                var session = _sessions[clientId];
 
-                        // FPS 업데이트
-                        session.Panel.UpdateFps();
-                    }
-                    break;
+                // 세션 패널의 PictureBox에 표시
+                if (session.Panel != null && session.Panel.ScreenPictureBox != null)
+                {
+                    // 기존 이미지 Dispose
+                    var oldImage = session.Panel.ScreenPictureBox.Image;
+                    session.Panel.ScreenPictureBox.Image = screenImage;
+                    oldImage?.Dispose();
+
+                    // FPS 업데이트
+                    session.Panel.UpdateFps();
                 }
             }
         }
@@ -594,8 +633,6 @@ namespace DioRemoteControl.Agent.Forms
                 Log($"종료 중 오류: {ex.Message}");
             }
         }
-
-
 
         /// <summary>
         /// 폼 종료 시

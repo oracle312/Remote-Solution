@@ -21,6 +21,7 @@ namespace DioRemoteControl.Client.Forms
         private string _authCode;
         private string _clientId;
         private bool _isScreenSharing = false;
+        private bool _autoConnect = false;
 
         // 화면 캡처 타이머
         private System.Threading.Timer _screenCaptureTimer;
@@ -41,6 +42,16 @@ namespace DioRemoteControl.Client.Forms
         {
             InitializeComponent();
             InitializeUI();
+            _autoConnect = false;
+        }
+
+        /// <summary>
+        /// authCode를 받는 생성자 (Program.cs에서 호출용)
+        /// </summary>
+        public ClientMainForm(string authCode) : this()
+        {
+            _authCode = authCode;
+            _autoConnect = true;
         }
 
         /// <summary>
@@ -185,8 +196,21 @@ namespace DioRemoteControl.Client.Forms
         {
             base.OnLoad(e);
             Log("=== DIO-SYSTEM 원격지원 클라이언트 ===");
-            Log("상담원에게 받은 인증번호를 입력하세요.");
-            txtAuthCode.Focus();
+
+            if (_autoConnect && !string.IsNullOrEmpty(_authCode))
+            {
+                // 자동 연결 모드
+                txtAuthCode.Text = _authCode;
+                txtAuthCode.Enabled = false;
+                btnConnect.Enabled = false;
+                Log($"자동 연결 모드: 인증번호 {_authCode}");
+                ConnectToServer();
+            }
+            else
+            {
+                Log("상담원에게 받은 인증번호를 입력하세요.");
+                txtAuthCode.Focus();
+            }
         }
 
         private void BtnConnect_Click(object sender, EventArgs e)
