@@ -29,6 +29,7 @@ namespace DioRemoteControl.Agent.Forms
         private List<SessionPanel> _sessionPanels;
         private Dictionary<string, SessionInfo> _sessions; // 추가
         private const int MAX_SESSIONS = 3;
+        private System.Threading.SemaphoreSlim _sendLock = new System.Threading.SemaphoreSlim(1, 1);
 
         // UI 컨트롤
         private Label lblAuthCode;
@@ -324,6 +325,7 @@ namespace DioRemoteControl.Agent.Forms
         /// </summary>
         private async Task SendMessage(object message)
         {
+            await _sendLock.WaitAsync();  // ✅ 전송 락 획득
             try
             {
                 if (_ws.State != WebSocketState.Open)
@@ -342,11 +344,20 @@ namespace DioRemoteControl.Agent.Forms
                     _cts.Token
                 );
 
-                Log($"📤 메시지 전송: {json}");
+                // 전송 성공 로그 (screen_data는 너무 많으니 제외)
+                var msgType = Newtonsoft.Json.Linq.JObject.Parse(json)["type"]?.ToString();
+                if (msgType != "screen_data")
+                {
+                    Log($"📤 메시지 전송: {msgType}");
+                }
             }
             catch (Exception ex)
             {
                 Log($"❌ 전송 오류: {ex.Message}");
+            }
+            finally
+            {
+                _sendLock.Release();  // ✅ 전송 락 해제
             }
         }
 
@@ -482,6 +493,11 @@ namespace DioRemoteControl.Agent.Forms
                     ConnectedAt = DateTime.Now
                 };
 
+                panel.RemoteMouseMove += (s, e) => SendMouseEvent(clientId, "move", e);
+                panel.RemoteMouseDown += (s, e) => SendMouseEvent(clientId, "down", e);
+                panel.RemoteMouseUp += (s, e) => SendMouseEvent(clientId, "up", e);
+                panel.RemoteMouseClick += (s, e) => SendMouseEvent(clientId, "click", e);
+
                 Log($"✅ 고객 연결 완료: {clientName} ({clientId})");
                 Log($"📺 SessionPanel 생성 완료 (총 {_sessionPanels.Count}개)");
                 UpdateStatus($"연결됨 ({_sessionPanels.Count}/{MAX_SESSIONS})", Color.LightGreen);
@@ -491,6 +507,26 @@ namespace DioRemoteControl.Agent.Forms
                 Log($"⚠️ 최대 세션 수 초과 ({MAX_SESSIONS}개)");
             }
         }
+
+        /// <summary>
+        /// 세션 패널들의 크기를 재조정 (균등 분할)
+        /// </summary>
+        private void ResizeSessionPanels()
+        {
+            if (_sessionPanels.Count == 0) return;
+
+            int panelWidth = panelSessions.ClientSize.Width - 20;
+            int availableHeight = panelSessions.ClientSize.Height - 20;
+            int sessionHeight = (availableHeight / _sessionPanels.Count) - 10;
+
+            for (int i = 0; i < _sessionPanels.Count; i++)
+            {
+                _sessionPanels[i].Size = new Size(panelWidth, sessionHeight);
+                _sessionPanels[i].Location = new Point(10, 10 + (i * (sessionHeight + 10)));
+            }
+        }
+
+
 
         /// <summary>
         /// 클라이언트 연결 해제
@@ -517,6 +553,56 @@ namespace DioRemoteControl.Agent.Forms
             Log($"고객 연결 해제: {clientId}");
             UpdateStatus($"대기 중 ({_sessionPanels.Count}/{MAX_SESSIONS})",
                 _sessionPanels.Count > 0 ? Color.LightGreen : Color.Yellow);
+        }
+
+        /// <summary>
+        /// 마우스 이벤트를 서버로 전송
+        /// </summary>
+        private async void SendMouseEvent(string clientId, string action, MouseEventArgs e)
+        {
+            try
+            {
+                string button = e.Button == MouseButtons.Left ? "left" :
+                               e.Button == MouseButtons.Right ? "right" :
+                               e.Button == MouseButtons.Middle ? "middle" : "none";
+
+                int screenWidth = 1920;
+                int screenHeight = 1080;
+
+                if (_sessions.ContainsKey(clientId) &&
+                    _sessions[clientId].Panel.ScreenPictureBox.Image != null)
+                {
+                    screenWidth = _sessions[clientId].Panel.ScreenPictureBox.Image.Width;
+                    screenHeight = _sessions[clientId].Panel.ScreenPictureBox.Image.Height;
+                }
+
+                var message = new
+                {
+                    type = "mouse_event",
+                    target_id = clientId,
+                    @event = new
+                    {
+                        action = action,
+                        button = button,
+                        x = e.X,
+                        y = e.Y,
+                        delta = e.Delta,
+                        screen_width = screenWidth,
+                        screen_height = screenHeight
+                    }
+                };
+
+                await SendMessage(message);
+
+                if (action != "move")
+                {
+                    Log($"🖱️ 마우스: {action} ({e.X}, {e.Y}) → {clientId}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Log($"❌ 마우스 전송 실패: {ex.Message}");
+            }
         }
 
         /// <summary>
@@ -699,6 +785,7 @@ namespace DioRemoteControl.Agent.Forms
 
                 _ws?.Dispose();
                 _cts?.Dispose();
+                _sendLock?.Dispose();  // ✅ SemaphoreSlim 해제
 
                 Log("연결 종료됨");
             }

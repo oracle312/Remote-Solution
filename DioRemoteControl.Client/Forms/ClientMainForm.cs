@@ -12,7 +12,7 @@ using Newtonsoft.Json.Linq;
 namespace DioRemoteControl.Client.Forms
 {
     /// <summary>
-    /// 클라이언트 메인 폼 - 화면 공유 기능 추가
+    /// 클라이언트 메인 폼 - 화면 공유 + 마우스/키보드 제어
     /// </summary>
     public partial class ClientMainForm : Form
     {
@@ -22,6 +22,8 @@ namespace DioRemoteControl.Client.Forms
         private string _clientId;
         private bool _isScreenSharing = false;
         private bool _autoConnect = false;
+        private DioRemoteControl.Client.Core.InputSimulator _inputSimulator;  // ✅ 마우스/키보드 제어
+        private System.Threading.SemaphoreSlim _sendLock = new System.Threading.SemaphoreSlim(1, 1);
 
         // 화면 캡처 타이머
         private System.Threading.Timer _screenCaptureTimer;
@@ -43,6 +45,7 @@ namespace DioRemoteControl.Client.Forms
             InitializeComponent();
             InitializeUI();
             _autoConnect = false;
+            _inputSimulator = new DioRemoteControl.Client.Core.InputSimulator();  // ✅ 초기화
         }
 
         /// <summary>
@@ -360,6 +363,7 @@ namespace DioRemoteControl.Client.Forms
 
         private async Task SendMessage(object message)
         {
+            await _sendLock.WaitAsync();  // ✅ 전송 락 획득
             try
             {
                 if (_ws.State != WebSocketState.Open)
@@ -381,6 +385,10 @@ namespace DioRemoteControl.Client.Forms
             catch (Exception ex)
             {
                 Log($"❌ 전송 오류: {ex.Message}");
+            }
+            finally
+            {
+                _sendLock.Release();  // ✅ 전송 락 해제
             }
         }
 
@@ -430,6 +438,14 @@ namespace DioRemoteControl.Client.Forms
 
                         MessageBox.Show($"상담원({agentName2})과 연결되었습니다.\n화면 공유가 시작됩니다.",
                             "연결 완료", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        break;
+
+                    case "mouse_event":  // ✅ 마우스 제어
+                        HandleMouseEvent(data);
+                        break;
+
+                    case "keyboard_event":  // ✅ 키보드 제어
+                        HandleKeyboardEvent(data);
                         break;
 
                     case "error":
@@ -586,6 +602,123 @@ namespace DioRemoteControl.Client.Forms
             return null;
         }
 
+        /// <summary>
+        /// 마우스 이벤트 처리 ✅
+        /// </summary>
+        private void HandleMouseEvent(JObject data)
+        {
+            try
+            {
+                var eventData = data["event"];
+                if (eventData == null)
+                {
+                    Log("⚠️ mouse_event에 event 데이터가 없습니다.");
+                    return;
+                }
+
+                string action = eventData["action"]?.ToString();
+                string button = eventData["button"]?.ToString();
+                int x = eventData["x"]?.ToObject<int>() ?? 0;
+                int y = eventData["y"]?.ToObject<int>() ?? 0;
+                int delta = eventData["delta"]?.ToObject<int>() ?? 0;
+
+                // 마우스 이벤트 실행
+                switch (action)
+                {
+                    case "move":
+                        _inputSimulator.MouseMove(x, y);
+                        break;
+
+                    case "click":
+                        if (button == "left")
+                            _inputSimulator.MouseLeftClick(x, y);
+                        else if (button == "right")
+                            _inputSimulator.MouseRightClick(x, y);
+                        Log($"🖱️ 마우스 클릭: {button} ({x}, {y})");
+                        break;
+
+                    case "down":
+                        if (button == "left")
+                            _inputSimulator.MouseLeftDown(x, y);
+                        else if (button == "right")
+                            _inputSimulator.MouseRightDown(x, y);
+                        break;
+
+                    case "up":
+                        if (button == "left")
+                            _inputSimulator.MouseLeftUp(x, y);
+                        else if (button == "right")
+                            _inputSimulator.MouseRightUp(x, y);
+                        break;
+
+                    case "wheel":
+                        _inputSimulator.MouseWheel(delta);
+                        Log($"🖱️ 마우스 휠: {delta}");
+                        break;
+
+                    default:
+                        Log($"⚠️ 알 수 없는 마우스 액션: {action}");
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log($"❌ 마우스 이벤트 처리 오류: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// 키보드 이벤트 처리 ✅
+        /// </summary>
+        private void HandleKeyboardEvent(JObject data)
+        {
+            try
+            {
+                var eventData = data["event"];
+                if (eventData == null)
+                {
+                    Log("⚠️ keyboard_event에 event 데이터가 없습니다.");
+                    return;
+                }
+
+                string action = eventData["action"]?.ToString();
+                int keyCode = eventData["key_code"]?.ToObject<int>() ?? 0;
+                string keyName = eventData["key"]?.ToString();
+
+                var modifiers = eventData["modifiers"];
+                bool ctrl = modifiers?["ctrl"]?.ToObject<bool>() ?? false;
+                bool alt = modifiers?["alt"]?.ToObject<bool>() ?? false;
+                bool shift = modifiers?["shift"]?.ToObject<bool>() ?? false;
+
+                Keys key = (Keys)keyCode;
+
+                // 키보드 이벤트 실행
+                switch (action)
+                {
+                    case "key_down":
+                        _inputSimulator.KeyDown(key);
+                        break;
+
+                    case "key_up":
+                        _inputSimulator.KeyUp(key);
+                        break;
+
+                    case "key_press":
+                        _inputSimulator.KeyPress(key);
+                        Log($"⌨️ 키 입력: {keyName}");
+                        break;
+
+                    default:
+                        Log($"⚠️ 알 수 없는 키보드 액션: {action}");
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log($"❌ 키보드 이벤트 처리 오류: {ex.Message}");
+            }
+        }
+
         private void UpdateStatus(string status, Color color)
         {
             if (this.InvokeRequired)
@@ -656,6 +789,7 @@ namespace DioRemoteControl.Client.Forms
 
                 _ws?.Dispose();
                 _cts?.Dispose();
+                _sendLock?.Dispose();  // ✅ SemaphoreSlim 해제
 
                 Log("연결 종료됨");
             }
