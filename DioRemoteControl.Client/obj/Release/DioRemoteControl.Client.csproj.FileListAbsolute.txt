@@ -12,5 +12,13 @@ C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Client\obj\Rele
 C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Client\obj\Release\DioRemot.1A363427.Up2Date
 C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Client\obj\Release\DioRemoteControl.Client.exe
 C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Client\obj\Release\DioRemoteControl.Client.pdb
-C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Client\obj\Release\DioRemoteControl.Client.csproj.Fody.CopyLocal.cache
-C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Client\obj\Release\DioRemoteControl.Client.csproj.Fody.RuntimeCopyLocal.cache
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Client\bin\Release\Costura.dll
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Client\bin\Release\DioRemoteControl.Common.dll
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Client\bin\Release\Newtonsoft.Json.dll
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Client\bin\Release\System.Drawing.Common.dll
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Client\bin\Release\websocket-sharp.dll
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Client\bin\Release\WindowsInput.dll
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Client\bin\Release\DioRemoteControl.Common.pdb
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Client\bin\Release\Costura.pdb
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Client\bin\Release\Costura.xml
+C:\Users\USER\Desktop\Paralyze\DioRemoteControl\DioRemoteControl.Client\bin\Release\System.Drawing.Common.pdb

@@ -160,6 +160,9 @@ namespace DioRemoteControl.Agent.Forms
 
             bottomPanel.Controls.Add(txtLog);
             this.Controls.Add(bottomPanel);
+
+            // ✅ 폼 크기 변경 시 패널 재배치
+            this.Resize += (s, e) => ResizeSessionPanels();
         }
 
         /// <summary>
@@ -477,11 +480,7 @@ namespace DioRemoteControl.Agent.Forms
             // 새 세션 패널 생성
             if (_sessionPanels.Count < MAX_SESSIONS)
             {
-                SessionPanel panel = new SessionPanel
-                {
-                    Size = new Size(600, 400),
-                    Location = new Point(10, 10 + (_sessionPanels.Count * 410))
-                };
+                SessionPanel panel = new SessionPanel();
 
                 panelSessions.Controls.Add(panel);
                 _sessionPanels.Add(panel);
@@ -493,13 +492,34 @@ namespace DioRemoteControl.Agent.Forms
                     ConnectedAt = DateTime.Now
                 };
 
+                // ===== 마우스 이벤트 등록 =====
                 panel.RemoteMouseMove += (s, e) => SendMouseEvent(clientId, "move", e);
                 panel.RemoteMouseDown += (s, e) => SendMouseEvent(clientId, "down", e);
                 panel.RemoteMouseUp += (s, e) => SendMouseEvent(clientId, "up", e);
                 panel.RemoteMouseClick += (s, e) => SendMouseEvent(clientId, "click", e);
 
+                // ===== 키보드 이벤트 등록 ===== ✅ 추가!
+                panel.RemoteKeyDown += async (s, e) =>
+                {
+                    await SendKeyboardEvent(clientId, "key_down", (int)e.KeyCode,
+                        e.Control, e.Alt, e.Shift);
+                };
+
+                panel.RemoteKeyUp += async (s, e) =>
+                {
+                    await SendKeyboardEvent(clientId, "key_up", (int)e.KeyCode,
+                        e.Control, e.Alt, e.Shift);
+                };
+
+                // 포커스 주기 ✅
+                panel.GrabFocus();
+
+                // ✅ 패널 크기 재조정
+                ResizeSessionPanels();
+
                 Log($"✅ 고객 연결 완료: {clientName} ({clientId})");
                 Log($"📺 SessionPanel 생성 완료 (총 {_sessionPanels.Count}개)");
+                Log($"⌨️ 키보드 이벤트 등록 완료");
                 UpdateStatus($"연결됨 ({_sessionPanels.Count}/{MAX_SESSIONS})", Color.LightGreen);
             }
             else
@@ -515,18 +535,24 @@ namespace DioRemoteControl.Agent.Forms
         {
             if (_sessionPanels.Count == 0) return;
 
-            int panelWidth = panelSessions.ClientSize.Width - 20;
-            int availableHeight = panelSessions.ClientSize.Height - 20;
-            int sessionHeight = (availableHeight / _sessionPanels.Count) - 10;
+            // 여백 설정
+            int margin = 10;
+            int spacing = 10;
 
+            // 사용 가능한 영역 계산
+            int availableWidth = panelSessions.ClientSize.Width - (margin * 2);
+            int availableHeight = panelSessions.ClientSize.Height - (margin * 2) - (spacing * (_sessionPanels.Count - 1));
+
+            // 각 패널의 높이 (균등 분할)
+            int panelHeight = availableHeight / _sessionPanels.Count;
+
+            // 각 패널 크기 및 위치 설정
             for (int i = 0; i < _sessionPanels.Count; i++)
             {
-                _sessionPanels[i].Size = new Size(panelWidth, sessionHeight);
-                _sessionPanels[i].Location = new Point(10, 10 + (i * (sessionHeight + 10)));
+                _sessionPanels[i].Size = new Size(availableWidth, panelHeight);
+                _sessionPanels[i].Location = new Point(margin, margin + (i * (panelHeight + spacing)));
             }
         }
-
-
 
         /// <summary>
         /// 클라이언트 연결 해제
@@ -549,6 +575,9 @@ namespace DioRemoteControl.Agent.Forms
 
                 _sessions.Remove(clientId);
             }
+
+            // ✅ 남은 패널들 재배치
+            ResizeSessionPanels();
 
             Log($"고객 연결 해제: {clientId}");
             UpdateStatus($"대기 중 ({_sessionPanels.Count}/{MAX_SESSIONS})",
@@ -602,6 +631,49 @@ namespace DioRemoteControl.Agent.Forms
             catch (Exception ex)
             {
                 Log($"❌ 마우스 전송 실패: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// 키보드 이벤트를 서버로 전송 ✅ 새로 추가!
+        /// </summary>
+        private async Task SendKeyboardEvent(string clientId, string action, int keyCode,
+            bool ctrl, bool alt, bool shift)
+        {
+            try
+            {
+                var message = new
+                {
+                    type = "keyboard_event",
+                    target_id = clientId,
+                    @event = new
+                    {
+                        action = action,  // "key_down", "key_up", "key_press"
+                        key_code = keyCode,
+                        modifiers = new
+                        {
+                            ctrl = ctrl,
+                            alt = alt,
+                            shift = shift,
+                            win = false
+                        }
+                    }
+                };
+
+                await SendMessage(message);
+
+                // 키 이름 가져오기
+                string keyName = ((Keys)keyCode).ToString();
+                string modifiers = "";
+                if (ctrl) modifiers += "Ctrl+";
+                if (alt) modifiers += "Alt+";
+                if (shift) modifiers += "Shift+";
+
+                Log($"⌨️ 키보드: {action} ({modifiers}{keyName}) → {clientId}");
+            }
+            catch (Exception ex)
+            {
+                Log($"❌ 키보드 전송 실패: {ex.Message}");
             }
         }
 
