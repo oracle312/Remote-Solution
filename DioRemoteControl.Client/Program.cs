@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using System.IO;
 using DioRemoteControl.Client.Forms;
 using Newtonsoft.Json.Linq;
+using System.Runtime.InteropServices;
 
 namespace DioRemoteControl.Client
 {
@@ -11,9 +12,14 @@ namespace DioRemoteControl.Client
         /// <summary>
         /// 애플리케이션의 주 진입점입니다.
         /// </summary>
+        /// 
+        [DllImport("user32.dll")]
+        private static extern bool SetProcessDPIAware();
+
         [STAThread]
         static void Main(string[] args)
         {
+            SetProcessDPIAware();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 

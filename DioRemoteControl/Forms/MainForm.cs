@@ -127,7 +127,6 @@ namespace DioRemoteControl.Agent.Forms
             btnDisconnect.Click += BtnDisconnect_Click;
 
             topPanel.Controls.AddRange(new Control[] { lblTitle, lblAuthCode, lblStatus, btnSettings, btnDisconnect });
-            this.Controls.Add(topPanel);
 
             // 세션 패널 컨테이너
             panelSessions = new Panel
@@ -135,9 +134,8 @@ namespace DioRemoteControl.Agent.Forms
                 Dock = DockStyle.Fill,
                 BackColor = Color.FromArgb(245, 245, 245),
                 AutoScroll = true,
-                Padding = new Padding(10)
+                Padding = new Padding(10, 80, 10, 100)  // ✅ 위쪽 20px로 증가
             };
-            this.Controls.Add(panelSessions);
 
             // 하단 로그 패널
             Panel bottomPanel = new Panel
@@ -159,7 +157,11 @@ namespace DioRemoteControl.Agent.Forms
             };
 
             bottomPanel.Controls.Add(txtLog);
-            this.Controls.Add(bottomPanel);
+
+            // ✅ Controls 추가 순서 중요! (Bottom → Top → Fill)
+            this.Controls.Add(bottomPanel);   // 1. 하단 먼저
+            this.Controls.Add(topPanel);      // 2. 상단 다음
+            this.Controls.Add(panelSessions); // 3. 중간 Fill 마지막
 
             // ✅ 폼 크기 변경 시 패널 재배치
             this.Resize += (s, e) => ResizeSessionPanels();
@@ -535,13 +537,16 @@ namespace DioRemoteControl.Agent.Forms
         {
             if (_sessionPanels.Count == 0) return;
 
-            // 여백 설정
-            int margin = 10;
+            // ✅ panelSessions의 Padding 값 반영
+            int topPadding = panelSessions.Padding.Top;
+            int bottomPadding = panelSessions.Padding.Bottom;
+            int leftPadding = panelSessions.Padding.Left;
+            int rightPadding = panelSessions.Padding.Right;
             int spacing = 10;
 
-            // 사용 가능한 영역 계산
-            int availableWidth = panelSessions.ClientSize.Width - (margin * 2);
-            int availableHeight = panelSessions.ClientSize.Height - (margin * 2) - (spacing * (_sessionPanels.Count - 1));
+            // 사용 가능한 영역 계산 (Padding 포함)
+            int availableWidth = panelSessions.ClientSize.Width - leftPadding - rightPadding;
+            int availableHeight = panelSessions.ClientSize.Height - topPadding - bottomPadding - (spacing * (_sessionPanels.Count - 1));
 
             // 각 패널의 높이 (균등 분할)
             int panelHeight = availableHeight / _sessionPanels.Count;
@@ -550,7 +555,8 @@ namespace DioRemoteControl.Agent.Forms
             for (int i = 0; i < _sessionPanels.Count; i++)
             {
                 _sessionPanels[i].Size = new Size(availableWidth, panelHeight);
-                _sessionPanels[i].Location = new Point(margin, margin + (i * (panelHeight + spacing)));
+                // ✅ Y 좌표에 topPadding 반영
+                _sessionPanels[i].Location = new Point(leftPadding, topPadding + (i * (panelHeight + spacing)));
             }
         }
 
