@@ -3,12 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{85BDB775-1A29-4081-A746-A2AA1B28B34E}|DioRemoteControl.Client\\DioRemoteControl.Client.csproj|C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\dioremotecontrol.client\\forms\\clientmainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{85BDB775-1A29-4081-A746-A2AA1B28B34E}|DioRemoteControl.Client\\DioRemoteControl.Client.csproj|solutionrelative:dioremotecontrol.client\\forms\\clientmainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{E8B78FB6-EE69-4239-A284-13DE4E717F44}|DioRemoteControl\\DioRemoteControl.Agent.csproj|c:\\users\\user\\desktop\\paralyze\\dioremotecontrol\\dioremotecontrol\\forms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E8B78FB6-EE69-4239-A284-13DE4E717F44}|DioRemoteControl\\DioRemoteControl.Agent.csproj|solutionrelative:dioremotecontrol\\forms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{85BDB775-1A29-4081-A746-A2AA1B28B34E}|DioRemoteControl.Client\\DioRemoteControl.Client.csproj|C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\dioremotecontrol.client\\forms\\clientmainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{85BDB775-1A29-4081-A746-A2AA1B28B34E}|DioRemoteControl.Client\\DioRemoteControl.Client.csproj|solutionrelative:dioremotecontrol.client\\forms\\clientmainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E8B78FB6-EE69-4239-A284-13DE4E717F44}|DioRemoteControl\\DioRemoteControl.Agent.csproj|C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\dioremotecontrol\\forms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E8B78FB6-EE69-4239-A284-13DE4E717F44}|DioRemoteControl\\DioRemoteControl.Agent.csproj|solutionrelative:dioremotecontrol\\forms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E8B78FB6-EE69-4239-A284-13DE4E717F44}|DioRemoteControl\\DioRemoteControl.Agent.csproj|C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\dioremotecontrol\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E8B78FB6-EE69-4239-A284-13DE4E717F44}|DioRemoteControl\\DioRemoteControl.Agent.csproj|solutionrelative:dioremotecontrol\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E8B78FB6-EE69-4239-A284-13DE4E717F44}|DioRemoteControl\\DioRemoteControl.Agent.csproj|C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\dioremotecontrol\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{E8B78FB6-EE69-4239-A284-13DE4E717F44}|DioRemoteControl\\DioRemoteControl.Agent.csproj|solutionrelative:dioremotecontrol\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{85BDB775-1A29-4081-A746-A2AA1B28B34E}|DioRemoteControl.Client\\DioRemoteControl.Client.csproj|C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\dioremotecontrol.client\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{85BDB775-1A29-4081-A746-A2AA1B28B34E}|DioRemoteControl.Client\\DioRemoteControl.Client.csproj|solutionrelative:dioremotecontrol.client\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{85BDB775-1A29-4081-A746-A2AA1B28B34E}|DioRemoteControl.Client\\DioRemoteControl.Client.csproj|C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\dioremotecontrol.client\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -23,16 +39,8 @@
       "RelativeMoniker": "D:0:0:{85BDB775-1A29-4081-A746-A2AA1B28B34E}|DioRemoteControl.Client\\DioRemoteControl.Client.csproj|solutionrelative:dioremotecontrol.client\\forms\\clientmainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E8B78FB6-EE69-4239-A284-13DE4E717F44}|DioRemoteControl\\DioRemoteControl.Agent.csproj|C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\dioremotecontrol\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E8B78FB6-EE69-4239-A284-13DE4E717F44}|DioRemoteControl\\DioRemoteControl.Agent.csproj|solutionrelative:dioremotecontrol\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E8B78FB6-EE69-4239-A284-13DE4E717F44}|DioRemoteControl\\DioRemoteControl.Agent.csproj|C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\dioremotecontrol\\core\\websocketclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E8B78FB6-EE69-4239-A284-13DE4E717F44}|DioRemoteControl\\DioRemoteControl.Agent.csproj|solutionrelative:dioremotecontrol\\core\\websocketclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E8B78FB6-EE69-4239-A284-13DE4E717F44}|DioRemoteControl\\DioRemoteControl.Agent.csproj|C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\dioremotecontrol\\forms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{E8B78FB6-EE69-4239-A284-13DE4E717F44}|DioRemoteControl\\DioRemoteControl.Agent.csproj|solutionrelative:dioremotecontrol\\forms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E8B78FB6-EE69-4239-A284-13DE4E717F44}|DioRemoteControl\\DioRemoteControl.Agent.csproj|C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\dioremotecontrol\\forms\\settingsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -94,24 +102,48 @@
       "DocumentGroups": [
         {
           "DockedWidth": 105,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "MainForm.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl\\Forms\\MainForm.cs",
               "RelativeDocumentMoniker": "DioRemoteControl\\Forms\\MainForm.cs",
               "ToolTip": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl\\Forms\\MainForm.cs",
               "RelativeToolTip": "DioRemoteControl\\Forms\\MainForm.cs",
-              "ViewState": "AgIAAOwAAAAAAAAAAAAswMsAAABBAAAAAAAAAA==",
+              "ViewState": "AgIAALACAAAAAAAAAAAQwMICAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-19T00:43:38.104Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
+              "Title": "App.config",
+              "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl\\App.config",
+              "RelativeDocumentMoniker": "DioRemoteControl\\App.config",
+              "ToolTip": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl\\App.config",
+              "RelativeToolTip": "DioRemoteControl\\App.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2025-11-21T06:18:05.824Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "App.config",
+              "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl.Client\\App.config",
+              "RelativeDocumentMoniker": "DioRemoteControl.Client\\App.config",
+              "ToolTip": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl.Client\\App.config",
+              "RelativeToolTip": "DioRemoteControl.Client\\App.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2025-11-21T06:18:02.297Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "SessionPanel.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl\\Forms\\SessionPanel.cs",
               "RelativeDocumentMoniker": "DioRemoteControl\\Forms\\SessionPanel.cs",
@@ -119,12 +151,11 @@
               "RelativeToolTip": "DioRemoteControl\\Forms\\SessionPanel.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-19T00:50:47.769Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T00:50:47.769Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "ClientMainForm.cs [\uB514\uC790\uC778]",
               "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl.Client\\Forms\\ClientMainForm.cs",
               "RelativeDocumentMoniker": "DioRemoteControl.Client\\Forms\\ClientMainForm.cs",
@@ -136,19 +167,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "MainForm.cs [Design]",
+              "DocumentIndex": 2,
+              "Title": "MainForm.cs [\uB514\uC790\uC778]",
               "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl\\Forms\\MainForm.cs",
               "RelativeDocumentMoniker": "DioRemoteControl\\Forms\\MainForm.cs",
-              "ToolTip": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl\\Forms\\MainForm.cs [Design]",
-              "RelativeToolTip": "DioRemoteControl\\Forms\\MainForm.cs [Design]",
+              "ToolTip": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl\\Forms\\MainForm.cs [\uB514\uC790\uC778]",
+              "RelativeToolTip": "DioRemoteControl\\Forms\\MainForm.cs [\uB514\uC790\uC778]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-18T23:59:53.756Z",
-              "EditorCaption": " [Design]"
+              "EditorCaption": " [\uB514\uC790\uC778]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 9,
               "Title": "WebSocketClient.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl\\Core\\WebSocketClient.cs",
               "RelativeDocumentMoniker": "DioRemoteControl\\Core\\WebSocketClient.cs",
@@ -160,33 +191,44 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "ClientMainForm.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl.Client\\Forms\\ClientMainForm.cs",
               "RelativeDocumentMoniker": "DioRemoteControl.Client\\Forms\\ClientMainForm.cs",
               "ToolTip": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl.Client\\Forms\\ClientMainForm.cs",
               "RelativeToolTip": "DioRemoteControl.Client\\Forms\\ClientMainForm.cs",
-              "ViewState": "AgIAAP8BAAAAAAAAAAAUwDACAAA0AAAAAAAAAA==",
+              "ViewState": "AgIAAIICAAAAAAAAAAAQwI0CAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-19T00:59:39.686Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl.Client\\Program.cs",
               "RelativeDocumentMoniker": "DioRemoteControl.Client\\Program.cs",
               "ToolTip": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl.Client\\Program.cs",
               "RelativeToolTip": "DioRemoteControl.Client\\Program.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAAwB0AAAAgAAAAAAAAAA==",
+              "ViewState": "AgIAADwAAAAAAAAAAAAYwB0AAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-19T01:10:06.102Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T01:10:06.102Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl\\Program.cs",
+              "RelativeDocumentMoniker": "DioRemoteControl\\Program.cs",
+              "ToolTip": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl\\Program.cs",
+              "RelativeToolTip": "DioRemoteControl\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-19T00:53:57.84Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "SettingsForm.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl\\Forms\\SettingsForm.cs",
               "RelativeDocumentMoniker": "DioRemoteControl\\Forms\\SettingsForm.cs",
@@ -206,31 +248,18 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 11,
               "Title": "SessionPanel.cs [\uB514\uC790\uC778]",
               "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl\\Forms\\SessionPanel.cs",
               "RelativeDocumentMoniker": "DioRemoteControl\\Forms\\SessionPanel.cs",
               "ToolTip": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl\\Forms\\SessionPanel.cs [\uB514\uC790\uC778]",
               "RelativeToolTip": "DioRemoteControl\\Forms\\SessionPanel.cs [\uB514\uC790\uC778]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-19T00:58:25.134Z",
-              "EditorCaption": " [\uB514\uC790\uC778]"
+              "WhenOpened": "2025-11-19T00:58:25.134Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl\\Program.cs",
-              "RelativeDocumentMoniker": "DioRemoteControl\\Program.cs",
-              "ToolTip": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl\\Program.cs",
-              "RelativeToolTip": "DioRemoteControl\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAATAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-19T00:53:57.84Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 14,
               "Title": "MainForm.Designer.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl\\Forms\\MainForm.Designer.cs",
               "RelativeDocumentMoniker": "DioRemoteControl\\Forms\\MainForm.Designer.cs",
@@ -238,11 +267,12 @@
               "RelativeToolTip": "DioRemoteControl\\Forms\\MainForm.Designer.cs",
               "ViewState": "AgIAAA0AAAAAAAAAAAAzwBgAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-19T01:08:58.357Z"
+              "WhenOpened": "2025-11-19T01:08:58.357Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 12,
               "Title": "ClientMainForm.Designer.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl.Client\\Forms\\ClientMainForm.Designer.cs",
               "RelativeDocumentMoniker": "DioRemoteControl.Client\\Forms\\ClientMainForm.Designer.cs",
@@ -255,7 +285,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 13,
               "Title": "SystemCommands.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl.Client\\Core\\SystemCommands.cs",
               "RelativeDocumentMoniker": "DioRemoteControl.Client\\Core\\SystemCommands.cs",
@@ -267,7 +297,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 16,
               "Title": "WebSocketClient.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl.Client\\Core\\WebSocketClient.cs",
               "RelativeDocumentMoniker": "DioRemoteControl.Client\\Core\\WebSocketClient.cs",
@@ -279,7 +309,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 15,
               "Title": "AutoStartup.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl.Client\\Core\\AutoStartup.cs",
               "RelativeDocumentMoniker": "DioRemoteControl.Client\\Core\\AutoStartup.cs",
@@ -291,7 +321,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 17,
               "Title": "InputSimulator.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl.Client\\Core\\InputSimulator.cs",
               "RelativeDocumentMoniker": "DioRemoteControl.Client\\Core\\InputSimulator.cs",
@@ -303,7 +333,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 20,
               "Title": "AesEncryption.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl.Common\\Encryption\\AesEncryption.cs",
               "RelativeDocumentMoniker": "DioRemoteControl.Common\\Encryption\\AesEncryption.cs",
@@ -315,7 +345,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 19,
               "Title": "ImageCompressor.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl.Common\\Compression\\ImageCompressor.cs",
               "RelativeDocumentMoniker": "DioRemoteControl.Common\\Compression\\ImageCompressor.cs",
@@ -327,7 +357,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 18,
               "Title": "ScreenCapture.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl.Client\\Core\\ScreenCapture.cs",
               "RelativeDocumentMoniker": "DioRemoteControl.Client\\Core\\ScreenCapture.cs",
@@ -339,7 +369,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 21,
               "Title": "MessageProtocol.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl.Common\\Protocol\\MessageProtocol.cs",
               "RelativeDocumentMoniker": "DioRemoteControl.Common\\Protocol\\MessageProtocol.cs",
@@ -351,7 +381,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 22,
               "Title": "ConfigLoader.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Paralyze\\DioRemoteControl\\DioRemoteControl.Client\\Utils\\ConfigLoader.cs",
               "RelativeDocumentMoniker": "DioRemoteControl.Client\\Utils\\ConfigLoader.cs",

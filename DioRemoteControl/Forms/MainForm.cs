@@ -243,34 +243,58 @@ namespace DioRemoteControl.Agent.Forms
         /// </summary>
         private async Task ReceiveLoop()
         {
-            var buffer = new byte[8192];
+            var buffer = new byte[65536]; // 64KB로 증가 (8KB → 64KB)
 
             try
             {
                 while (_ws.State == WebSocketState.Open)
                 {
-                    var result = await _ws.ReceiveAsync(
-                        new ArraySegment<byte>(buffer),
-                        _cts.Token
-                    );
+                    // 메시지 조각들을 모을 리스트
+                    var messageBuilder = new System.Collections.Generic.List<byte>();
+                    WebSocketReceiveResult result;
 
-                    if (result.MessageType == WebSocketMessageType.Close)
+                    // 완전한 메시지를 받을 때까지 반복
+                    do
                     {
-                        Log("서버가 연결을 종료했습니다.");
-                        this.Invoke(new Action(() =>
+                        result = await _ws.ReceiveAsync(
+                            new ArraySegment<byte>(buffer),
+                            _cts.Token
+                        );
+
+                        if (result.MessageType == WebSocketMessageType.Close)
                         {
-                            UpdateStatus("연결 끊김", Color.Red);
-                            MessageBox.Show("서버와의 연결이 종료되었습니다.",
-                                "연결 종료", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            this.Close();
-                        }));
-                        break;
-                    }
+                            Log("서버가 연결을 종료했습니다.");
+                            this.Invoke(new Action(() =>
+                            {
+                                UpdateStatus("연결 끊김", Color.Red);
+                                MessageBox.Show("서버와의 연결이 종료되었습니다.",
+                                    "연결 종료", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                this.Close();
+                            }));
+                            return;
+                        }
 
-                    if (result.MessageType == WebSocketMessageType.Text)
+                        // 받은 데이터를 리스트에 추가
+                        if (result.Count > 0)
+                        {
+                            byte[] chunk = new byte[result.Count];
+                            Array.Copy(buffer, 0, chunk, 0, result.Count);
+                            messageBuilder.AddRange(chunk);
+                        }
+
+                    } while (!result.EndOfMessage); // 메시지 끝까지 반복
+
+                    // 완전한 메시지 처리
+                    if (result.MessageType == WebSocketMessageType.Text && messageBuilder.Count > 0)
                     {
-                        string message = Encoding.UTF8.GetString(buffer, 0, result.Count);
-                        Log($"📨 메시지 수신: {message}");
+                        string message = Encoding.UTF8.GetString(messageBuilder.ToArray());
+
+                        // 너무 긴 메시지는 로그에서 축약
+                        string logMessage = message.Length > 200
+                            ? message.Substring(0, 200) + $"... (총 {message.Length} chars)"
+                            : message;
+
+                        Log($"📨 메시지 수신 (크기: {message.Length} chars): {logMessage}");
 
                         // 메시지 처리
                         this.Invoke(new Action(() => HandleMessage(message)));
@@ -419,8 +443,25 @@ namespace DioRemoteControl.Agent.Forms
         /// </summary>
         private void HandleClientConnected(JObject data)
         {
-            string clientId = data["client_id"]?.ToString();
-            string clientName = data["client_name"]?.ToString() ?? "알 수 없음";
+            // 서버에서 보낸 client 객체에서 정보 추출
+            var client = data["client"];
+            if (client == null)
+            {
+                Log("❌ client_connected 메시지에 client 정보가 없습니다.");
+                return;
+            }
+
+            string clientId = client["id"]?.ToString();
+            string clientName = client["name"]?.ToString() ?? "알 수 없음";
+            string clientInfo = client["info"]?.ToString() ?? "";
+
+            if (string.IsNullOrEmpty(clientId))
+            {
+                Log("❌ client_id가 비어있습니다.");
+                return;
+            }
+
+            Log($"📥 클라이언트 연결 데이터 수신: ID={clientId}, Name={clientName}");
 
             // 새 세션 패널 생성
             if (_sessionPanels.Count < MAX_SESSIONS)
@@ -441,8 +482,13 @@ namespace DioRemoteControl.Agent.Forms
                     ConnectedAt = DateTime.Now
                 };
 
-                Log($"✅ 고객 연결: {clientName} ({clientId})");
+                Log($"✅ 고객 연결 완료: {clientName} ({clientId})");
+                Log($"📺 SessionPanel 생성 완료 (총 {_sessionPanels.Count}개)");
                 UpdateStatus($"연결됨 ({_sessionPanels.Count}/{MAX_SESSIONS})", Color.LightGreen);
+            }
+            else
+            {
+                Log($"⚠️ 최대 세션 수 초과 ({MAX_SESSIONS}개)");
             }
         }
 
@@ -485,15 +531,26 @@ namespace DioRemoteControl.Agent.Forms
                 int width = data["width"]?.ToObject<int>() ?? 0;
                 int height = data["height"]?.ToObject<int>() ?? 0;
 
+                Log($"📥 screen_data 수신: clientId={clientId}, 데이터 크기={base64Image?.Length ?? 0} chars, 해상도={width}x{height}");
+
                 if (string.IsNullOrEmpty(base64Image))
+                {
+                    Log("❌ base64Image가 비어있습니다!");
                     return;
+                }
+
+                Log($"🔄 Base64 → 이미지 변환 중...");
 
                 // Base64를 이미지로 변환
                 byte[] imageBytes = Convert.FromBase64String(base64Image);
 
+                Log($"✅ Base64 디코딩 완료: {imageBytes.Length} bytes");
+
                 using (MemoryStream ms = new MemoryStream(imageBytes))
                 {
                     Image screenImage = Image.FromStream(ms);
+
+                    Log($"✅ 이미지 생성 완료: {screenImage.Width}x{screenImage.Height}");
 
                     // UI 업데이트 (메인 스레드에서)
                     this.Invoke(new Action(() =>
@@ -505,6 +562,7 @@ namespace DioRemoteControl.Agent.Forms
             catch (Exception ex)
             {
                 Log($"❌ 화면 데이터 처리 오류: {ex.Message}");
+                Log($"   스택 트레이스: {ex.StackTrace}");
             }
         }
 
@@ -513,14 +571,19 @@ namespace DioRemoteControl.Agent.Forms
         /// </summary>
         private void DisplayScreen(string clientId, Image screenImage)
         {
+            Log($"🖼️ 화면 데이터 표시 시도: clientId={clientId}, 이미지 크기={screenImage.Width}x{screenImage.Height}");
+
             // 연결된 세션 찾기
             if (_sessions.ContainsKey(clientId))
             {
                 var session = _sessions[clientId];
+                Log($"✅ 세션 찾음: clientId={clientId}");
 
                 // 세션 패널의 PictureBox에 표시
                 if (session.Panel != null && session.Panel.ScreenPictureBox != null)
                 {
+                    Log($"📺 PictureBox에 이미지 설정 중...");
+
                     // 기존 이미지 Dispose
                     var oldImage = session.Panel.ScreenPictureBox.Image;
                     session.Panel.ScreenPictureBox.Image = screenImage;
@@ -528,7 +591,18 @@ namespace DioRemoteControl.Agent.Forms
 
                     // FPS 업데이트
                     session.Panel.UpdateFps();
+
+                    Log($"✅ 화면 표시 완료!");
                 }
+                else
+                {
+                    Log($"❌ Panel 또는 PictureBox가 null입니다. Panel={session.Panel != null}, PictureBox={session.Panel?.ScreenPictureBox != null}");
+                }
+            }
+            else
+            {
+                Log($"❌ clientId={clientId}에 해당하는 세션을 찾을 수 없습니다.");
+                Log($"   현재 등록된 세션: {string.Join(", ", _sessions.Keys)}");
             }
         }
 

@@ -302,34 +302,52 @@ namespace DioRemoteControl.Client.Forms
 
         private async Task ReceiveLoop()
         {
-            var buffer = new byte[8192];
+            var buffer = new byte[65536]; // 64KB로 증가
 
             try
             {
                 while (_ws.State == WebSocketState.Open)
                 {
-                    var result = await _ws.ReceiveAsync(
-                        new ArraySegment<byte>(buffer),
-                        _cts.Token
-                    );
+                    // 메시지 조각들을 모을 리스트
+                    var messageBuilder = new System.Collections.Generic.List<byte>();
+                    WebSocketReceiveResult result;
 
-                    if (result.MessageType == WebSocketMessageType.Close)
+                    // 완전한 메시지를 받을 때까지 반복
+                    do
                     {
-                        Log("서버 연결 종료");
-                        this.Invoke(new Action(() =>
+                        result = await _ws.ReceiveAsync(
+                            new ArraySegment<byte>(buffer),
+                            _cts.Token
+                        );
+
+                        if (result.MessageType == WebSocketMessageType.Close)
                         {
-                            UpdateStatus("연결 종료됨", Color.Red);
-                            StopScreenSharing();
-                            MessageBox.Show("서버와의 연결이 종료되었습니다.",
-                                "연결 종료", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            ResetUI();
-                        }));
-                        break;
-                    }
+                            Log("서버 연결 종료");
+                            this.Invoke(new Action(() =>
+                            {
+                                UpdateStatus("연결 종료됨", Color.Red);
+                                StopScreenSharing();
+                                MessageBox.Show("서버와의 연결이 종료되었습니다.",
+                                    "연결 종료", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                ResetUI();
+                            }));
+                            return;
+                        }
 
-                    if (result.MessageType == WebSocketMessageType.Text)
+                        // 받은 데이터를 리스트에 추가
+                        if (result.Count > 0)
+                        {
+                            byte[] chunk = new byte[result.Count];
+                            Array.Copy(buffer, 0, chunk, 0, result.Count);
+                            messageBuilder.AddRange(chunk);
+                        }
+
+                    } while (!result.EndOfMessage); // 메시지 끝까지 반복
+
+                    // 완전한 메시지 처리
+                    if (result.MessageType == WebSocketMessageType.Text && messageBuilder.Count > 0)
                     {
-                        string message = Encoding.UTF8.GetString(buffer, 0, result.Count);
+                        string message = Encoding.UTF8.GetString(messageBuilder.ToArray());
                         this.Invoke(new Action(() => HandleMessage(message)));
                     }
                 }
