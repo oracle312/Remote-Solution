@@ -137,7 +137,7 @@ namespace DioRemoteControl.Agent.Forms
                 Padding = new Padding(10, 80, 10, 100)  // ✅ 위쪽 20px로 증가
             };
 
-            // 하단 로그 패널
+            // 하단 로그 패널 
             Panel bottomPanel = new Panel
             {
                 Dock = DockStyle.Bottom,
